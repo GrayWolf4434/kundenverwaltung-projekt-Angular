@@ -1,0 +1,18 @@
+<div class="toolbar">
+  <input [(ngModel)]="filter" placeholder="🔍 Suche..." />
+  <button (click)="onExportCsv()">CSV</button>
+  <button (click)="onExportJson()">JSON</button>
+  <button (click)="onExportPdf()">PDF</button>
+  <input type="file" (change)="onFileSelected($event)" accept=".csv,.json" hidden #fileInput />
+  <button (click)="fileInput.click()">Import</button>
+</div>
+
+<ul>
+  <li *ngFor="let k of filtered">
+    {{k.name}} ({{k.email}})
+    <button (click)="delete(k.id)">🗑️</button>
+  </li>
+</ul>
+
+<!-- Link zum Formular -->
+<a routerLink="/customers/form">Neuen Kunden anlegen</a>

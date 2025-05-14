@@ -1,0 +1,8 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <label>Name:</label>
+  <input formControlName="name" />
+  <label>E-Mail:</label>
+  <input formControlName="email" />
+  <button type="submit">{{ id ? 'Aktualisieren' : 'Speichern' }}</button>
+  <button routerLink="/customers">Abbrechen</button>
+</form>
