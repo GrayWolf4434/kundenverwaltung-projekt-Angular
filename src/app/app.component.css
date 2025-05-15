@@ -1,0 +1,7 @@
+mat-toolbar {
+  display: flex;
+  gap: 0.5rem;
+}
+.arrow {
+  vertical-align: middle;
+}

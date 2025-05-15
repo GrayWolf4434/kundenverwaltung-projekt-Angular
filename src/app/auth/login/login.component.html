@@ -1,6 +1,17 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input formControlName="username" placeholder="Benutzer" />
-  <input type="password" formControlName="password" placeholder="Passwort" />
-  <button type="submit">Einloggen</button>
+<div class="login-card">
+  <h2>Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="username">Benutzername</label>
+      <input id="username" formControlName="username" type="text" placeholder="Benutzername" />
+    </div>
+    <div class="form-group">
+      <label for="password">Passwort</label>
+      <input id="password" formControlName="password" type="password" placeholder="Passwort" />
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid">Einloggen</button>
+  </form>
+  <a class="forgot" routerLink="/register">Noch keinen Account? Registrieren</a>
+  <a class="forgot" routerLink="/forgot-password">Passwort vergessen?</a>
   <div *ngIf="error" class="error">{{ error }}</div>
-</form>
+</div>

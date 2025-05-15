@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private registerUrl = 'http://localhost:3000/api/register';
   private loginUrl = 'http://localhost:3000/api/login';
   private tokenKey = 'auth_token';
 
@@ -19,6 +20,11 @@ export class AuthService {
         map(() => true)
       );
   }
+
+  /** Registriert einen neuen Benutzer */
+register(username: string, password: string): Observable<{ id: number }> {
+  return this.http.post<{ id: number }>(this.registerUrl, { username, password });
+}
 
   /** Löscht das Token (Logout) */
   logout(): void {

@@ -1,1 +1,33 @@
+<mat-toolbar color="primary">
+  <ng-container *ngFor="let m of menu">
+    <button
+      mat-button
+      *ngIf="!m.children"
+      [routerLink]="m.route">
+      <mat-icon>{{ m.icon }}</mat-icon>
+      {{ m.label }}
+    </button>
+
+    <button
+      mat-button
+      *ngIf="m.children"
+      [matMenuTriggerFor]="menuMap[m.label]">
+      <mat-icon>{{ m.icon }}</mat-icon>
+      {{ m.label }}
+      <mat-icon class="arrow">arrow_drop_down</mat-icon>
+    </button>
+  </ng-container>
+</mat-toolbar>
+
+<ng-container *ngFor="let m of menu">
+  <mat-menu #menu{{m.label.replace(' ', '')}}="matMenu" *ngIf="m.children">
+    <button mat-menu-item
+            *ngFor="let c of m.children"
+            [routerLink]="c.route">
+      <mat-icon>{{ c.icon }}</mat-icon>
+      <span>{{ c.label }}</span>
+    </button>
+  </mat-menu>
+</ng-container>
+
 <router-outlet></router-outlet>

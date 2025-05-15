@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { ApiService } from '../../core/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Kunde } from '../../shared/models/kunde.model';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule }      from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { ApiService }        from '../../core/api.service';
+import { Kunde }             from '../../shared/models/kunde.model';
 
 @Component({
   selector: 'app-customer-form',
-  standalone: true, // <-- WICHTIG: Hier hinzufügen
-  imports: [CommonModule, FormsModule, ReactiveFormsModule], // <-- Alle Module in einer Liste
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.css']
 })
@@ -27,27 +25,28 @@ export class CustomerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: [''],
-      email: ['']
+      name:  ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]]
     });
 
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if (this.id) {
       this.api.getKunden().subscribe(list => {
         const k = list.find(x => x.id === this.id);
-        if (k) this.form.setValue({ name: k.name, email: k.email });
+        if (k) this.form.patchValue({ name: k.name, email: k.email });
       });
     }
   }
 
-  onSubmit() {
-    const val = this.form.value;
+  onSubmit(): void {
+    if (this.form.invalid) return;
+    const value = this.form.value;
     if (this.id) {
-      this.api.updateKunde({ id: this.id, ...val }).subscribe(() => {
+      this.api.updateKunde({ id: this.id, ...value }).subscribe(() => {
         this.router.navigate(['/customers']);
       });
     } else {
-      this.api.addKunde(val).subscribe(() => {
+      this.api.addKunde(value).subscribe(() => {
         this.router.navigate(['/customers']);
       });
     }

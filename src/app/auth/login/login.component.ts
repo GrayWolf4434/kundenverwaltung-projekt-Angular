@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
-import { Router } from '@angular/router';
-import { ReactiveFormsModule }  from '@angular/forms';
-import { CommonModule }         from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, ReactiveFormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  // Formular-Gruppe hier nur deklariert
+  loginForm!: FormGroup;
   error = '';
 
   constructor(
@@ -20,21 +25,21 @@ export class LoginComponent {
     private auth: AuthService,
     private router: Router
   ) {
+    // Formular-Gruppe im Konstruktor initialisieren
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
     const { username, password } = this.loginForm.value;
     this.auth.login(username, password).subscribe(
-      success => {
-        if (success) {
-          this.router.navigate(['/customers']);
-        }
-      },
-      err => this.error = 'Login fehlgeschlagen'
+      () => this.router.navigate(['/customers']),
+      () => this.error = 'Ungültige Zugangsdaten'
     );
   }
 }

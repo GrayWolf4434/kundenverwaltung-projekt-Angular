@@ -1,15 +1,62 @@
+// src/app/app.routes.ts
 import { Routes } from '@angular/router';
-import { SplashComponent }       from './splash/splash.component';
-import { LoginComponent }        from './auth/login/login.component';
-import { CustomerListComponent } from './customers/customer-list/customer-list.component';
-import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
-import { AuthGuard }             from './shared/guards/auth.guard';
+
+// Contracts
+import { NewComponent as ContractsNewComponent }       from './contracts/new/new.component';
+import { ExtendComponent as ContractsExtendComponent } from './contracts/extend/extend.component';
+
+// Customers
+import { NewComponent as CustomersNewComponent }       from './customers/new/new.component';
+import { DeleteComponent as CustomersDeleteComponent } from './customers/delete/delete.component';
+
+// Inventory
+import { NewComponent as InventoryNewComponent }       from './inventory/new/new.component';
+import { CheckComponent as InventoryCheckComponent }   from './inventory/check/check.component';
+
+// Receipt
+import { NewComponent as ReceiptNewComponent }         from './receipt/new/new.component';
+import { SearchComponent as ReceiptSearchComponent }   from './receipt/search/search.component';
+
+// Cash
+import { NewComponent as CashNewComponent }            from './cash/new/new.component';
+import { ReceiptComponent as CashReceiptComponent }    from './cash/receipt/receipt.component';
+import { CloseComponent as CashCloseComponent }        from './cash/close/close.component';
+
+// Other
+import { NotificationsComponent } from './notifications/notifications.component';
+import { AdminComponent }         from './admin/admin.component';
+import { SettingsComponent }      from './settings/settings.component';
+import { HelpPageComponent }      from './help/help-page.component';
 
 export const routes: Routes = [
-  { path: '',               component: SplashComponent },
-  { path: 'login',          component: LoginComponent },
-  { path: 'customers',      component: CustomerListComponent, canActivate: [AuthGuard] },
-  { path: 'customers/form', component: CustomerFormComponent, canActivate: [AuthGuard] },
-  { path: 'customers/form/:id', component: CustomerFormComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' }
+  // Customers
+  { path: 'customers/new',    component: CustomersNewComponent },
+  { path: 'customers/delete', component: CustomersDeleteComponent },
+
+  // Contracts
+  { path: 'contracts/new',    component: ContractsNewComponent },
+  { path: 'contracts/extend', component: ContractsExtendComponent },
+
+  // Inventory
+  { path: 'inventory/new',    component: InventoryNewComponent },
+  { path: 'inventory/check',  component: InventoryCheckComponent },
+
+  // Receipt
+  { path: 'receipt/new',      component: ReceiptNewComponent },
+  { path: 'receipt/search',   component: ReceiptSearchComponent },
+
+  // Cash
+  { path: 'cash/new',         component: CashNewComponent },
+  { path: 'cash/receipt',     component: CashReceiptComponent },
+  { path: 'cash/close',       component: CashCloseComponent },
+
+  // Others
+  { path: 'notifications',    component: NotificationsComponent },
+  { path: 'admin',            component: AdminComponent },
+  { path: 'settings',         component: SettingsComponent },
+  { path: 'help',             component: HelpPageComponent },
+
+  // Default & Fallback
+  { path: '',      redirectTo: 'customers/new', pathMatch: 'full' },
+  { path: '**',    redirectTo: '' }
 ];

@@ -1,0 +1,17 @@
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.add-btn {
+  margin-left: auto;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: #218838;
+}

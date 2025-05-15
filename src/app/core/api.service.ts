@@ -5,23 +5,27 @@ import { Kunde } from '../shared/models/kunde.model';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private base = 'http://localhost:3000/api/kunden';
+  private baseUrl = 'http://localhost:3000/api/kunden';
 
   constructor(private http: HttpClient) {}
 
+  /** Alle Kunden laden */
   getKunden(): Observable<Kunde[]> {
-    return this.http.get<Kunde[]>(this.base);
+    return this.http.get<Kunde[]>(this.baseUrl);
   }
 
-  addKunde(k: Omit<Kunde, 'id'>): Observable<{ id: number }> {
-    return this.http.post<{ id: number }>(this.base, k);
+  /** Neuen Kunden anlegen */
+  addKunde(k: { name: string; email: string }): Observable<Kunde> {
+    return this.http.post<Kunde>(this.baseUrl, k);
   }
 
-  updateKunde(k: Kunde): Observable<any> {
-    return this.http.put(`${this.base}/${k.id}`, k);
+  /** Kunden aktualisieren */
+  updateKunde(k: Kunde): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/${k.id}`, k);
   }
 
-  deleteKunde(id: number): Observable<any> {
-    return this.http.delete(`${this.base}/${id}`);
+  /** Kunden löschen */
+  deleteKunde(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 }

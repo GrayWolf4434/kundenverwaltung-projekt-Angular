@@ -1,16 +1,25 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter }       from '@angular/router';
-import { provideHttpClient }   from '@angular/common/http';
-import { importProvidersFrom } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-import { AppComponent }        from './app/app.component';
-import { routes }              from './app/app.routes';
+// src/main.ts
+import { bootstrapApplication }      from '@angular/platform-browser';
+import { provideAnimations }         from '@angular/platform-browser/animations';
+import { provideRouter }             from '@angular/router';
+import { MatToolbarModule }          from '@angular/material/toolbar';
+import { MatMenuModule }             from '@angular/material/menu';
+import { MatButtonModule }           from '@angular/material/button';
+import { MatIconModule }             from '@angular/material/icon';
+import { AppComponent }              from './app/app.component';
+import { routes }                    from './app/app.routes';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),                          // Routing
-    provideHttpClient(),                            // HttpClient für ApiService/AuthService
-    importProvidersFrom(FormsModule, ReactiveFormsModule) // Forms & Reactive Forms
+    provideAnimations(),
+    provideRouter(routes),
+    // Material-Module als Providers für Standalone-Components
+    importProvidersFrom(
+      MatToolbarModule,
+      MatMenuModule,
+      MatButtonModule,
+      MatIconModule
+    )
   ]
-}).catch(err => console.error(err));
+})
+.catch(err => console.error(err));
