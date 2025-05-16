@@ -1,5 +1,16 @@
 <mat-toolbar color="primary">
-  <ng-container *ngFor="let m of menu">
+  <ng-container *ngFor="let m of menu; let i = index">
+    <!-- Menüpunkte mit Sub-Menu -->
+    <button
+      mat-button
+      *ngIf="m.children"
+      [matMenuTriggerFor]="subMenus.toArray()[i]">
+      <mat-icon>{{ m.icon }}</mat-icon>
+      {{ m.label }}
+      <mat-icon class="arrow">arrow_drop_down</mat-icon>
+    </button>
+
+    <!-- Menüpunkte ohne Sub-Menu -->
     <button
       mat-button
       *ngIf="!m.children"
@@ -7,23 +18,13 @@
       <mat-icon>{{ m.icon }}</mat-icon>
       {{ m.label }}
     </button>
-
-    <button
-      mat-button
-      *ngIf="m.children"
-      [matMenuTriggerFor]="menuMap[m.label]">
-      <mat-icon>{{ m.icon }}</mat-icon>
-      {{ m.label }}
-      <mat-icon class="arrow">arrow_drop_down</mat-icon>
-    </button>
   </ng-container>
 </mat-toolbar>
 
-<ng-container *ngFor="let m of menu">
-  <mat-menu #menu{{m.label.replace(' ', '')}}="matMenu" *ngIf="m.children">
-    <button mat-menu-item
-            *ngFor="let c of m.children"
-            [routerLink]="c.route">
+<!-- Definition aller Sub-Menus -->
+<ng-container *ngFor="let m of menu; let i = index">
+  <mat-menu #subMenus="matMenu" *ngIf="m.children" [overlapTrigger]="false">
+    <button mat-menu-item *ngFor="let c of m.children" [routerLink]="c.route">
       <mat-icon>{{ c.icon }}</mat-icon>
       <span>{{ c.label }}</span>
     </button>

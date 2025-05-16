@@ -1,0 +1,25 @@
+.sub-toolbar, .search-panel, .table-card, .status-bar {
+  margin: 1rem;
+  padding: 0.5rem;
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+.actions .label {
+  display: none; /* Text nur in Tooltip */
+}
+.search-fields {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.table-card {
+  overflow: auto;
+}
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding-top: 1rem;
+}
