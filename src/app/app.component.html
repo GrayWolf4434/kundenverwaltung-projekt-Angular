@@ -1,34 +1,3 @@
-<mat-toolbar color="primary">
-  <ng-container *ngFor="let m of menu; let i = index">
-    <!-- Menüpunkte mit Sub-Menu -->
-    <button
-      mat-button
-      *ngIf="m.children"
-      [matMenuTriggerFor]="subMenus.toArray()[i]">
-      <mat-icon>{{ m.icon }}</mat-icon>
-      {{ m.label }}
-      <mat-icon class="arrow">arrow_drop_down</mat-icon>
-    </button>
-
-    <!-- Menüpunkte ohne Sub-Menu -->
-    <button
-      mat-button
-      *ngIf="!m.children"
-      [routerLink]="m.route">
-      <mat-icon>{{ m.icon }}</mat-icon>
-      {{ m.label }}
-    </button>
-  </ng-container>
-</mat-toolbar>
-
-<!-- Definition aller Sub-Menus -->
-<ng-container *ngFor="let m of menu; let i = index">
-  <mat-menu #subMenus="matMenu" *ngIf="m.children" [overlapTrigger]="false">
-    <button mat-menu-item *ngFor="let c of m.children" [routerLink]="c.route">
-      <mat-icon>{{ c.icon }}</mat-icon>
-      <span>{{ c.label }}</span>
-    </button>
-  </mat-menu>
-</ng-container>
-
+<h1>🚀 AppComponent lädt!</h1>
+<p>Menu-Items: {{ menu.length }}</p>
 <router-outlet></router-outlet>
