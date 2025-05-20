@@ -1,0 +1,15 @@
+{
+  "name": "Kundenverwaltung",
+  "short_name": "KVS",
+  "icons": [
+    {
+      "src": "assets/frtdata_logo_dark.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1976d2",
+  "background_color": "#fafafa"
+}

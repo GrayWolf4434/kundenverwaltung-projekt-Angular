@@ -1,3 +1,5 @@
+<!-- src/app/customers/dashboard/dashboard.component.html -->
+
 <mat-card class="sub-toolbar">
   <div class="actions">
     <button
@@ -12,7 +14,7 @@
 
 <mat-card class="search-panel">
   <form [formGroup]="form" (ngSubmit)="onSearch()" class="search-fields">
-    <mat-form-field>
+    <mat-form-field appearance="fill">
       <mat-label>Suchkriterien</mat-label>
       <mat-select formControlName="criteria">
         <mat-option value="vertragsende">Vertragsende</mat-option>
@@ -22,7 +24,7 @@
     </mat-form-field>
 
     <ng-container *ngIf="form.get('criteria')?.value === 'vertragsende'">
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-label>Datum</mat-label>
         <input matInput [matDatepicker]="picker" formControlName="date" />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -31,7 +33,7 @@
     </ng-container>
 
     <ng-container *ngIf="form.get('criteria')?.value !== 'vertragsende'">
-      <mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-label>Suchbegriff</mat-label>
         <input matInput formControlName="term" />
       </mat-form-field>
@@ -49,18 +51,75 @@
 
 <mat-card class="table-card">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!-- Spaltendefinitionen … (wie vorher) -->
+
+    <!-- List No -->
     <ng-container matColumnDef="listNo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>List No</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nr.</th>
       <td mat-cell *matCellDef="let e">{{ e.listNo }}</td>
     </ng-container>
-    <!-- weitere Spalten analog … -->
+
+    <!-- Vorname -->
+    <ng-container matColumnDef="vorname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vorname</th>
+      <td mat-cell *matCellDef="let e">{{ e.vorname }}</td>
+    </ng-container>
+
+    <!-- Nachname -->
+    <ng-container matColumnDef="nachname">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nachname</th>
+      <td mat-cell *matCellDef="let e">{{ e.nachname }}</td>
+    </ng-container>
+
+    <!-- Mobilfunknummer -->
+    <ng-container matColumnDef="mobilfunknummer">
+      <th mat-header-cell *matHeaderCellDef>Mob.-Nr.</th>
+      <td mat-cell *matCellDef="let e">{{ e.mobilfunknummer }}</td>
+    </ng-container>
+
+    <!-- Kundennummer -->
+    <ng-container matColumnDef="kundennummer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kunden-Nr.</th>
+      <td mat-cell *matCellDef="let e">{{ e.kundennummer }}</td>
+    </ng-container>
+
+    <!-- Vertragsende -->
+    <ng-container matColumnDef="vertragsende">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vertrags-Ende</th>
+      <td mat-cell *matCellDef="let e">{{ e.vertragsende }}</td>
+    </ng-container>
+
+    <!-- Produkt -->
+    <ng-container matColumnDef="produkt">
+      <th mat-header-cell *matHeaderCellDef>Produkt</th>
+      <td mat-cell *matCellDef="let e">{{ e.produkt }}</td>
+    </ng-container>
+
+    <!-- Tarif -->
+    <ng-container matColumnDef="tarif">
+      <th mat-header-cell *matHeaderCellDef>Tarif</th>
+      <td mat-cell *matCellDef="let e">{{ e.tarif }}</td>
+    </ng-container>
+
+    <!-- Mitarbeiter -->
+    <ng-container matColumnDef="mitarbeiter">
+      <th mat-header-cell *matHeaderCellDef>Mitarb.</th>
+      <td mat-cell *matCellDef="let e">{{ e.mitarbeiter }}</td>
+    </ng-container>
+
+    <!-- Info -->
+    <ng-container matColumnDef="info">
+      <th mat-header-cell *matHeaderCellDef>Info</th>
+      <td mat-cell *matCellDef="let e">{{ e.info }}</td>
+    </ng-container>
+
+    <!-- Header / Row Definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr mat-row        *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-  <mat-paginator [pageSize]="10"></mat-paginator>
+
+  <mat-paginator [pageSize]="10" showFirstLastButtons></mat-paginator>
 </mat-card>
 
 <mat-card class="status-bar">
-  <span>Kundenanzahl auf Liste: {{ dataSource.data.length }}</span>
+  <span><strong>Kundenanzahl auf Liste:</strong> {{ dataSource.data.length }}</span>
 </mat-card>
